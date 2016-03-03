@@ -33,7 +33,13 @@ Accounts.ui.config({
         fieldLabel: 'assignedTo',
         inputType: 'array',
         visible: false,
-    }
+    },{
+        fieldName: 'statusAssigned',
+        fieldLabel: 'statusAssigned',
+        inputType: 'boolean',
+        visible: false,
+    },
+    
     ]
 });
 

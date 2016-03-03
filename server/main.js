@@ -1,18 +1,29 @@
 
 Accounts.onCreateUser(function(options, user) { 
+    var assignedTo = new Array();
     
-    var userForAssign = Meteor.users.findOne({"profile.status":"alive"});
+    //here the program generates a user who will be assigned to the killer
+    var userForAssign = Meteor.users.findOne({$and:[{"profile.status":"alive"},
+						                {"profile.statusAssigned":false}
+						            ]});
+                                    
     var randomToken = Random.secret(5);
     if (options.profile) {
       user.profile = options.profile;
     }
+    
+    //if there is a user which is ready to be assigned /the magic happens/
      if (userForAssign) {
       user.profile.assigned = userForAssign._id;
+      Meteor.call("userChangeStatus", userForAssign._id, user._id);
     }
     else    {
         user.profile.assigned = "pending";
     }
      user.profile.status = "alive";
      user.profile.token = randomToken;
+     user.profile.assignedTo = assignedTo;
+     user.profile.statusAssigned = false;
+     
     return user; 
 });
