@@ -16,8 +16,14 @@ Meteor.methods({
    changeAssigned: function(victimId, killerId){
        var victim = Meteor.users.findOne({_id:victimId});
        var assignedVictim = victim.profile.assigned;
+       
        if (assignedVictim) {
-           Meteor.users.update({_id:killerId}, {$set: {"profile.assigned":assignedVictim}});
+           if (assignedVictim != killerId) {
+               Meteor.users.update({_id:killerId}, {$set: {"profile.assigned":assignedVictim}});
+           }
+           else{
+               Meteor.users.update({_id:killerId}, {$set: {"profile.assigned":"pending"}});
+           }
        } else {
            
        }
@@ -45,4 +51,6 @@ Meteor.methods({
 });
 
 //Idea: Method for if there is someone with status pending give me immediately to them // Done
-// The user should not be able to assign himself
+// The user should not be able to assign himself // Done
+// If the user kills the user he is assigned to then his status for assign should be changed to false and assigned to array 
+// should become clear
