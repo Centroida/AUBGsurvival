@@ -25,5 +25,10 @@ Accounts.onCreateUser(function(options, user) {
      user.profile.assignedTo = assignedTo;
      user.profile.statusAssigned = false;
      
+     //Here the registered user will be assigned to someone with status pending. For example the first user
+     
+     Meteor.setTimeout(function(){
+    Meteor.call("workForPending", user._id);
+  }, 1000);
     return user; 
 });
