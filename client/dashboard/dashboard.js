@@ -19,11 +19,7 @@ Template.userDashboard.helpers({
         else{
             return;
         }
-        
-        
-        
-        
-        
+       
     }
 });
 

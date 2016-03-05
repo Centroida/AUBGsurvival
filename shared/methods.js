@@ -36,7 +36,8 @@ Meteor.methods({
        console.log(victim.profile.name);
        var arrayAssignedTo = victim.profile.assignedTo;
        var freeUser = Meteor.users.findOne({$and:[{"profile.assigned":"pending"},
-						                {_id: {$ne: victimId} }
+						                {_id: {$ne: victimId} },
+                                        {'profile.assignedTo': {$nin: [victimId]}}
 						            ]});
        var freeUserId = freeUser._id;
        console.log(freeUserId);
