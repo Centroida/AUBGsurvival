@@ -7,40 +7,37 @@ Accounts.ui.config({
         visible: true,
         validate: function(value, errorFunction) {
           if (!value) {
-            errorFunction("Please write your first name");
+            errorFunction("Please, write your first name");
             return false;
           } else {
             return true;
           }
         }
-    },{
+    },
+    {
         fieldName: 'status',
         fieldLabel: 'Status',
         inputType: 'text',
         visible: false,
-    },{
+    },
+    {
         fieldName: 'token',
         fieldLabel: 'token',
         inputType: 'text',
         visible: false,
-    },{
-        fieldName: 'assigned',
-        fieldLabel: 'assigned',
+    },
+    {
+        fieldName: 'hunters',
+        fieldLabel: 'hunters',
+        inputType: 'array',
+        visible: false
+    },
+    {
+        fieldName: 'target',
+        fieldLabel: 'target',
         inputType: 'text',
         visible: false,
-    },{
-        fieldName: 'assignedTo',
-        fieldLabel: 'assignedTo',
-        inputType: 'array',
-        visible: false,
-    },{
-        fieldName: 'statusAssigned',
-        fieldLabel: 'statusAssigned',
-        inputType: 'boolean',
-        visible: false,
-    },
-    
-    ]
-});
+    }
 
- 
+  ]
+});
