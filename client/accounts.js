@@ -15,7 +15,7 @@ Accounts.ui.config({
         }
     },
     {
-        fieldName: 'status',
+        fieldName: 'alive',
         fieldLabel: 'Status',
         inputType: 'text',
         visible: false,
@@ -37,7 +37,7 @@ Accounts.ui.config({
         fieldLabel: 'target',
         inputType: 'text',
         visible: false,
-    }
+    },
 
   ]
 });

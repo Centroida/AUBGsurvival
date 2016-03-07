@@ -38,8 +38,9 @@ Meteor.methods({
          var victim = Meteor.users.findOne({
                         $and:[
   						                {_id: {$ne: hunterId} },
-                              {"profile.status": "alive"},
-                              {"profile.hunters": {$nin: [hunterId]}}
+                              {"profile.alive": true},
+                              {"profile.hunters": {$nin: [hunterId]}},
+                              {"profile.hunters.2": {$exists: 0}}
   						              ]
                         });
           //step 2 - assign the target and the hunter
@@ -62,7 +63,7 @@ Meteor.methods({
        var hunter = Meteor.users.findOne({
                       $and:[
 						                {_id: {$ne: victimId} },
-                            {"profile.status": "alive"},
+                            {"profile.alive": true},
                             {"profile.target": {$ne: victimId}},
 						     {"profile.hunters.2": {$exists: 0}}         ]
                       });
@@ -85,7 +86,7 @@ Meteor.methods({
        console.log(targetId);
        console.log(targetUser);
        if (inputToken == targetUser.profile.token) {
-       Meteor.users.update({_id:targetId}, {$set: {"profile.status":"killed"}}); //assign a value of killed to the user
+       Meteor.users.update({_id:targetId}, {$set: {"profile.alive":false}}); //assign a value of killed to the user
        var nextTarget = targetUser.profile.target;
        
        if (nextTarget != this.userId) {
@@ -100,7 +101,8 @@ Meteor.methods({
            throw new Meteor.Error( 400, 'Bad request' );
        }
        
-   }
+   },
+   
 });
 
    
@@ -112,8 +114,10 @@ Meteor.methods({
 //BackEnd tasks:
 //Assigning if the killer is also a target of his target is forbidden //Done
 //It is allowed if the alive users are not more than 20
-//The user could not target himself  ---- killTarget
+//The user could not target himself  ---- killTarget // Done
+//Simulate a game with seven players
+//Go through the assignHunter and assign target methods and look for possiblee optimizations
+//delete from arrays
 //Counter for kills + increment
 //when someone is dead he should not be able to kill
-//delete from arrays
 //Email Validation

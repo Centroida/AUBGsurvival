@@ -5,7 +5,7 @@ Accounts.onCreateUser(function(options, user) {
       user.profile = options.profile;
     };
 
-     user.profile.status = "alive";
+     user.profile.alive = true;
      user.profile.token = Random.secret(5);
      user.profile.hunters = [];
      user.profile.target = null;
