@@ -54,4 +54,9 @@ Meteor.methods({
 //Idea: Method for if there is someone with status pending give me immediately to them // Done
 // The user should not be able to assign himself // Done
 // If the user kills the user he is assigned to then his status for assign should be changed to false and assigned to array 
-// should become clear
+// should become clear // Done
+// Do absolutely the same in the change assigned array
+// Next -> doublecheck everything: pushing into the array
+// Increment the kills counter
+// Stop the user when he is killed // The things should go to the destroy user method
+// See the opportunity for adding a random user (who already has been assigned to someone)
