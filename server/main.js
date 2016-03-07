@@ -15,8 +15,9 @@ Accounts.onCreateUser(function(options, user) {
      Meteor.setTimeout(function(){
          if (user._id) {
            //todo check if the order of calling is OK
+           Meteor.call("assignTarget" , user._id);
              Meteor.call("assignHunter", user._id);
-             Meteor.call("assignTarget" , user._id);
+             
          };
   }, 1000);
     return user;

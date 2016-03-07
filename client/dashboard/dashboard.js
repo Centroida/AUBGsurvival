@@ -30,6 +30,11 @@ Template.userDashboard.helpers({
 Template.userDashboard.events({
     "click .js-kill-target":function(event){
         var inputId = $(".targetId").val();
+        try {
+                Meteor.call("killTarget", inputId);  
+            } catch (e) {
+                console.log(e); 
+            }
         // var userId = Meteor.userId();
         // var user = Meteor.users.findOne({_id:userId});
         // var actualVictimId = user.profile.assigned;

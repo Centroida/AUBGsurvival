@@ -63,8 +63,8 @@ Meteor.methods({
                       $and:[
 						                {_id: {$ne: victimId} },
                             {"profile.status": "alive"},
-                            {"profile.target": {$ne: victimId}}
-						              ]
+                            {"profile.target": {$ne: victimId}},
+						     {"profile.hunters.2": {$exists: 0}}         ]
                       });
 
        if (hunter) {
@@ -74,9 +74,46 @@ Meteor.methods({
        } else {
            return;
        }
+   },
+   
+   //THE METHOD FOR KILLING A USER AND ASSIGNING HIS TARGETS
+   killTarget: function(inputToken){
+       var userId = this.userId;
+       var currentUser = Meteor.users.findOne({_id:userId});
+       var targetId = currentUser.profile.target;
+       var targetUser = Meteor.users.findOne({_id:targetId});
+       console.log(targetId);
+       console.log(targetUser);
+       if (inputToken == targetUser.profile.token) {
+       Meteor.users.update({_id:targetId}, {$set: {"profile.status":"killed"}}); //assign a value of killed to the user
+       var nextTarget = targetUser.profile.target;
+       
+       if (nextTarget != this.userId) {
+         Meteor.users.update({_id:userId}, {$set: {"profile.target":nextTarget}}); //assign a value of killed to the user
+       }
+       else{
+         Meteor.users.update({_id:userId}, {$set: {"profile.target":null}});
+         Meteor.call("assignTarget", userId);
+       }
+       
+       } else {
+           throw new Meteor.Error( 400, 'Bad request' );
+       }
+       
    }
 });
+
+   
+   
 
 //Idea: Method for if there is someone with status pending give me immediately to them // Done
 // The user should not be able to assign himself // Done
 
+//BackEnd tasks:
+//Assigning if the killer is also a target of his target is forbidden //Done
+//It is allowed if the alive users are not more than 20
+//The user could not target himself  ---- killTarget
+//Counter for kills + increment
+//when someone is dead he should not be able to kill
+//delete from arrays
+//Email Validation
