@@ -5,7 +5,20 @@ Meteor.methods({
        if(hunter.profile.target == null) {//step 1 - check if the hunter doesn't have a target already
        var aliveUsers = Meteor.users.find({"profile.alive":true}).count(); // this is the variable which will tell how many users are alive
        console.log("this is the number of the alive users: " + aliveUsers);
-         var victim = Meteor.users.findOne({
+       var notHunted =  Meteor.users.findOne({
+                        $and:[
+  						                {_id: {$ne: hunterId} },
+                              {"profile.alive": true},
+                             //{"profile.hunters": {$nin: [hunterId]}},//It should not have been targeted by the same hunter
+                              {"profile.hunters.0": {$exists: 0}},
+                              {"profile.target": {$ne: hunterId}}
+  						              ]
+                        });
+       if(notHunted){
+           var victim = notHunted;
+       }
+       else{
+          var victim = Meteor.users.findOne({
                         $and:[
   						                {_id: {$ne: hunterId} },
                               {"profile.alive": true},
@@ -13,7 +26,10 @@ Meteor.methods({
                               {"profile.hunters.1": {$exists: 0}},
                               {"profile.target": {$ne: hunterId}}
   						              ]
-                        });
+                        }); 
+       }
+       
+         
           //step 2 - assign the target and the hunter
           if(victim) {
             victimHunters = victim.profile.hunters;
@@ -81,7 +97,7 @@ Meteor.methods({
       
       //the case with the killer is specific - so we handle it in a different way
       //he has the right on the target's target
-       if ((nextTarget != this.userId) && (nextTarget != currentUser.profile.target)) {//check if the next target is not the user himself
+       if ((nextTarget != this.userId) && (this.userId != nextTargetUser.profile.target)) {//check if the next target is not the user himself
            console.log("We are assigning the next target");
            //the killer has the right to obtain the target
          Meteor.users.update({_id:userId}, {$set: {"profile.target":nextTarget}}); //assign a value of killed to the user
