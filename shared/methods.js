@@ -64,7 +64,11 @@ Meteor.methods({
        
        if (inputToken == targetUser.profile.token) {// the user's input is correct
        console.log("We are killing this user!!!!!!");
-       
+       var kills = currentUser.kills;
+       if(!kills){
+           kills = 0;
+       }
+       Meteor.users.update({_id:userId}, {$set: {kills: kills + 1}});
        Meteor.users.update({_id:targetId}, {$set: {"profile.alive":false}}); //assign a value of killed to the user
        
        //Now go the array of his target and delete the entry with the killed user's name    

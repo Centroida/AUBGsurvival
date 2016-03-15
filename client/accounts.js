@@ -38,6 +38,12 @@ Accounts.ui.config({
         inputType: 'text',
         visible: false,
     },
+     {
+        fieldName: 'kills',
+        fieldLabel: 'kills',
+        inputType: 'integer',
+        visible: false,
+    },
 
   ]
 });
