@@ -48,3 +48,30 @@ Template.userDashboard.events({
         // }
     }
 });
+
+
+Template.adminDashboard.helpers({ 
+  usersStats: function(){
+      var users = Meteor.users.find({});
+      if(users){
+          return users;
+      }
+      else{
+          return;
+      }
+  },
+  
+  currentHunter: function(id){
+      var userId = id;
+      var user = Meteor.users.findOne({_id:userId});
+      if(user){
+          return user.profile.name;
+      }
+  } 
+}); 
+
+Template.adminDashboard.events({ 
+    'click #foo': function(event, template) { 
+         
+    } 
+}); 

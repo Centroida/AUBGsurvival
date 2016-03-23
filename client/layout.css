@@ -1,3 +1,35 @@
 .mainarea{
 	margin-top: 80px !important;
 }
+
+.imageOuter{
+    width:100%;
+   margin:0 auto; 
+   /*background:url(home.jpg);*/ 
+   height:620px; 
+}
+
+.btn{
+	border-radius: 0px !important;
+}
+ .btn-home{
+	background-color: blue;
+    border: 2px solid black;
+	width: 150px !important;
+	color: white;
+ }
+.navbar-default{
+  background-color: black !important;
+}
+.navbar-default .navbar-nav > li > a{
+    color: white;
+    font-size: 15px;
+}
+.navbar-default .navbar-nav > li > a:hover{
+    color: greenyellow;
+    font-size: 15px;
+}
+.navbar-default .navbar-nav > li > a:focus{
+    color: #14d5e3;
+    font-size: 15px;
+}
