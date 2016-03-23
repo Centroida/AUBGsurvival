@@ -16,12 +16,21 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav">
-					<li class="active"><a>{{>loginButtons}} <span class="sr-only">(current)</span></a></li>
                     <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="/ranking">Ranking</a></li>
                   </ul>
+
+									<ul class="nav navbar-nav navbar-right">
+										{{#if currentUser}}
+                      <!-- todo Add log out -->
+										{{else}}
+                      <li><a href="/signup"> Register </a></li>
+                      <li><a href="/signin"> Log in </a></li>
+										{{/if}}
+									</ul>
                 </div><!-- /.navbar-collapse -->
 
- 
+
           </div><!-- / container-fluid -->
 
     </nav>

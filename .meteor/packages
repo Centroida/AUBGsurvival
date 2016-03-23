@@ -21,5 +21,7 @@ insecure                # Allow all DB writes from clients (for prototyping)
 accounts-password
 iron:router
 twbs:bootstrap
-ian:accounts-ui-bootstrap-3
 random
+aldeed:collection2
+aldeed:autoform
+alanning:roles
