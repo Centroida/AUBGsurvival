@@ -9,7 +9,7 @@ Accounts.onCreateUser(function(options, user) {
      user.profile.token = Random.secret(5);
      user.profile.hunters = [];
      user.profile.target = null;
-
+     user.profile.kills = 0;
 
      //assign a target and a hunter for the new user
      Meteor.setTimeout(function(){

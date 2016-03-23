@@ -4,5 +4,12 @@
             <button class="btn btn-default btn-home">Rules</button><br><br>
             <button class="btn btn-default btn-home">Dashboard</button>
         </div>
-        
+        <div class="rankings">
+            <hr>
+            <h3>Ranking:</h3>
+            <hr>
+            {{#each rankings}}
+             <p>{{profile.name}} : {{profile.kills}}</p>
+            {{/each}}
+        </div>
 </template>
