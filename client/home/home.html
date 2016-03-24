@@ -2,5 +2,8 @@
   <h1> AUBG Survival </h1>
   <h5> Game status: </h5>
   <h5> Players killed: </h5>
+  {{#each events}}
+    <p>{{event}}, Date: {{createdOn}}</p>
+  {{/each}}
 
 </template>

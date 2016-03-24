@@ -7,7 +7,7 @@ Template.userDashboard.helpers({
             var target = Meteor.users.findOne({_id:targetId});
 
             if (target) {
-               var targetInfo = target.profile.name;
+               var targetInfo = target.profile.lastName + ", " + target.profile.firstName;
                return targetInfo;
                }
                else{
@@ -70,7 +70,8 @@ Template.adminDashboard.helpers({
       var userId = id;
       var user = Meteor.users.findOne({_id:userId});
       if(user){
-          return user.profile.name;
+          var currentHunter = user.profile.lastName + ", " + user.profile.firstName; 
+          return currentHunter;
       }
   } 
 }); 

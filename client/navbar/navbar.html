@@ -23,9 +23,11 @@
 									<ul class="nav navbar-nav navbar-right">
 										{{#if currentUser}}
                       <!-- todo Add log out -->
+                      <li><a href="/" class="js-logout"> Log Out </a></li>
 										{{else}}
                       <li><a href="/signup"> Register </a></li>
                       <li><a href="/signin"> Log in </a></li>
+                      
 										{{/if}}
 									</ul>
                 </div><!-- /.navbar-collapse -->
