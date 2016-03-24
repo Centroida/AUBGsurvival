@@ -56,7 +56,10 @@ Template.adminDashboard.helpers({
   usersStats: function(){
       var users = Meteor.users.find({});
       if(users){
+          console.log("hello");
+          console.log(users.fetch({}));
           return users;
+          
       }
       else{
           return;
