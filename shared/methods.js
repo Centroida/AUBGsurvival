@@ -85,7 +85,7 @@ assignTarget: function(hunterId){
        Meteor.users.update({_id:targetId}, {$set: {"profile.alive":false}}); //assign a value of killed to the user
        var nameKiller = currentUser.profile.firstName + " " + currentUser.profile.lastName;
        var nameTarget = targetUser.profile.firstName + " " + targetUser.profile.lastName;
-       var stringForInsert = nameKiller + " have just killed " + nameTarget;
+       var stringForInsert = nameKiller + " has just killed " + nameTarget;
        Events.insert({
            "createdOn": new Date(),
            "event":  stringForInsert,
