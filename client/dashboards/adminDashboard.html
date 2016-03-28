@@ -4,7 +4,7 @@
     <p>Name: {{profile.lastName}}</p>
     <p>Status: {{profile.alive}}</p>
     <p>Token: {{profile.token}}</p>
-    <p>Target: {{profile.target}}</p>
+    <p>Target: {{currentTarget profile.target}}</p>
     <p>Hunters: </p>
     {{#each profile.hunters}}
         <p>{{currentHunter this}}</p>

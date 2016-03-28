@@ -73,6 +73,14 @@ Template.adminDashboard.helpers({
           var currentHunter = user.profile.lastName + ", " + user.profile.firstName; 
           return currentHunter;
       }
+  },
+  currentTarget: function(id){
+      var userId = id;
+      var user = Meteor.users.findOne({_id:userId});
+      if(user){
+          var currentTarget = user.profile.lastName + ", " + user.profile.firstName;
+          return currentTarget;
+      }
   } 
 }); 
 
