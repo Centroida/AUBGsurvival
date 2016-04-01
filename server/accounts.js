@@ -1,3 +1,4 @@
+Accounts.config({restrictCreationByEmailDomain:'aubg.edu'});
 
 Accounts.onCreateUser(function(options, user) {
 
