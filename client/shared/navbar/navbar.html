@@ -16,8 +16,12 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav">
-                    <li><a href="/dashboard">Dashboard</a></li>
-                    <li><a href="/ranking">Ranking</a></li>
+										{{#if currentUser}}
+                       <li><a href="/dashboard">Dashboard</a></li>
+										{{/if}}
+									  {{#if gameRunning}}
+                    		<li><a href="/ranking">Ranking</a></li>
+										{{/if}}
                   </ul>
 
 									<ul class="nav navbar-nav navbar-right">
@@ -25,9 +29,12 @@
                       <!-- todo Add log out -->
                       <li><a href="/" class="js-logout"> Log Out </a></li>
 										{{else}}
-                      <li><a href="/signup"> Register </a></li>
+
+										  {{#unless gameRunning}}
+                      		<li><a href="/signup"> Register </a></li>
+											{{/unless}}
                       <li><a href="/signin"> Log in </a></li>
-                      
+
 										{{/if}}
 									</ul>
                 </div><!-- /.navbar-collapse -->

@@ -15,5 +15,7 @@ Meteor.startup(function () {
 
 	}
 
+	GameState.insert({state: false}); //the game will be stopped
+
 
 });

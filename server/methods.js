@@ -26,10 +26,10 @@ assignTarget: function(hunterId){
                               {"profile.hunters.1": {$exists: 0}},
                               {"profile.target": {$ne: hunterId}}
   						              ]
-                        }); 
+                        });
        }
-       
-         
+
+
           //step 2 - assign the target and the hunter
           if(victim) {
             victimHunters = victim.profile.hunters;
@@ -53,30 +53,30 @@ assignTarget: function(hunterId){
                              {"profile.hunters": {$nin: [victimId]}} // the victim is not among the user's hunters
                                       ]
                       });
-                      
+
        if (hunter) {
            victimHunters.push(hunter._id);
            Meteor.users.update({_id:hunter._id}, {$set: {"profile.target":victimId}}); //assign  a target for the hunter
            Meteor.users.update({_id:victimId}, {$set: {"profile.hunters":victimHunters}});//set the array with the new hunter in it
        }
-       
+
        else{
            return;
        }
-     
+
    },
-   
+
    //THE METHOD FOR KILLING A USER AND ASSIGNING HIS TARGETS
    killTarget: function(inputToken){
-       console.log("Method killUser have been called");
+       console.log("Method killUser has been called");
        var userId = this.userId; // the id of the current user
        var currentUser = Meteor.users.findOne({_id:userId});// we have the current user
        var targetId = currentUser.profile.target; // we obtain the profile target
        var targetUser = Meteor.users.findOne({_id:targetId}); //we find the _id of the target
-       
-       
+
+
        if ((inputToken == targetUser.profile.token) && (currentUser.profile.alive == true)) {// the user's input is correct
-       console.log("We are killing this user!!!!!!");
+       console.log("A user is being killed");
        var kills = currentUser.profile.kills;
        if(!kills){
            kills = 0;
@@ -90,8 +90,8 @@ assignTarget: function(hunterId){
            "createdOn": new Date(),
            "event":  stringForInsert,
        });
-       
-       //Now go the array of his target and delete the entry with the killed user's name    
+
+       //Now go the array of his target and delete the entry with the killed user's name
        var nextTarget = targetUser.profile.target;// we obtain the next target
        var nextTargetUser = Meteor.users.findOne({_id:nextTarget});
        var nextTargetHunters = nextTargetUser.profile.hunters;//the current array of hunters
@@ -99,9 +99,9 @@ assignTarget: function(hunterId){
        if (index > -1) {
          nextTargetHunters.splice(index, 1);
          Meteor.users.update({_id:nextTargetUser._id}, {$set:{"profile.hunters":nextTargetHunters}});
-       }       
+       }
        // End of deleting
-      
+
       //the case with the killer is specific - so we handle it in a different way
       //he has the right on the target's target
        if ((nextTarget != this.userId) && (this.userId != nextTargetUser.profile.target)) {//check if the next target is not the user himself
@@ -113,7 +113,7 @@ assignTarget: function(hunterId){
          Meteor.users.update({_id:userId}, {$set: {"profile.target":null}});
          Meteor.call("assignTarget", userId);
        }
-       
+
        //for all users in the hunters - change their target
        for(position = 0; position < targetUser.profile.hunters.length; position++){
           if (targetUser.profile.hunters[position] != this.userId) {
@@ -123,13 +123,13 @@ assignTarget: function(hunterId){
               Meteor.call("assignTarget", hunterId);
           }
       }//end for loop
-       
-       } 
-       
+
+       }
+
        else {//if it is not correct, throw an exception
            throw new Meteor.Error( 400, 'Bad request' );
        }// end of the block for the user's input
-       
+
    },
-   
+
 });

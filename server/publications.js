@@ -6,3 +6,7 @@ Meteor.publish("users", function () {
 Meteor.publish("events", function(){
     return Events.find({});
 });
+
+Meteor.publish("gamestate" , function() {
+  return GameState.findOne({}); //return the only game state
+})
