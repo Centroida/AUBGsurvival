@@ -33,7 +33,11 @@ Template.adminDashboard.helpers({
 });
 
 Template.adminDashboard.events({
-    'click #foo': function(event, template) {
+    'click .js-btn-start-game': function(event, template) {
+        Meteor.call('toggleGameState');
 
+    },
+    'click .js-btn-stop-game': function(event, template) {
+        Meteor.call('toggleGameState');
     }
 });

@@ -4,6 +4,8 @@ Template.userDashboard.onCreated(function() {
         self.subscribe('userData');
         self.subscribe('users');
     });
+
+
 });
 
 
@@ -11,6 +13,7 @@ Template.userDashboard.helpers({
     target:function(){
         var user = Meteor.users.findOne({_id:Meteor.userId()});
         if (user) {
+<<<<<<< HEAD
 
             var targetId = user.profile.target;
             var target = Meteor.users.findOne({_id:targetId});
@@ -24,16 +27,23 @@ Template.userDashboard.helpers({
                 return;
                }
 
-        }
+=======
+            console.log(user);
+            var targetId = user.profile.target;
 
-        else{
-            return;
-        }
+            function take_user(target) {
+                var user_for_return = Meteor.users.findOne({_id: target});
+                if (user_for_return) {
+                    Session.set("target", user_for_return);
+                }
+                return Session.get("target");
+            };
 
-    },
-    
-  
-});
+            var target = take_user(targetId);
+
+>>>>>>> 02632a19badbf480cf606b4d5c575d13da005aa0
+        }
+}});
 
 ///////////////////////////////////////
 /////////////EVENTS
