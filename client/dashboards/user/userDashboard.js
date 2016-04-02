@@ -11,26 +11,17 @@ Template.userDashboard.helpers({
     target:function(){
         var user = Meteor.users.findOne({_id:Meteor.userId()});
         if (user) {
-            console.log(user);
+
             var targetId = user.profile.target;
-             function take_user(target){
-                var user_for_return = Meteor.users.findOne({_id:target});
-                console.log(user_for_return);
-                 if(user_for_return){
-                     Session.set("target", user_for_return);
-                 }
-                return Session.get("target");
-            };
-
-            var target = take_user(targetId);
-
+            var target = Meteor.users.findOne({_id:targetId});
             if (target) {
                 console.log(target);
                var targetInfo = target.profile.lastName + ", " + target.profile.firstName;
-               return targetInfo;
+                Session.set("data", targetInfo);
+               return Session.get("data");
                }
                else{
-                   return;
+                return;
                }
 
         }

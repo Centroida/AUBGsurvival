@@ -144,4 +144,13 @@ assignTarget: function(hunterId){
 
    },
 
+    getTarget: function(targetId){
+        var userForReturn = Meteor.users.findOne({_id:targetId});
+        if(userForReturn){
+            console.log("I am returning the user");
+            console.log(userForReturn);
+            return userForReturn;
+        }
+
+    }
 });
