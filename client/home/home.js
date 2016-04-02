@@ -2,7 +2,8 @@ Template.home.helpers({
   playersKilled: function() {
 
      Meteor.call('totalKills',function(error,response) {
-         return response.totalKills;
+
+         return response[0].totalKills;
      })
 
 
