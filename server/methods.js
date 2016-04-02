@@ -1,6 +1,18 @@
 Meteor.methods({
 
 assignTarget: function(hunterId){
+    //   var number_alive_users = Meteor.users().find({"profile.alive": true}).count();
+    //var number_all_users = Meteor.users().find({}).count();
+    //if((number_users == 2) && (number_all_users != 2)){
+    //    var hunter = Meteor.users.findOne({_id:hunterId});
+    //    var another_user = Meteor.users.findOne({$and:[
+    //        {_id:{$ne: hunterId}},
+    //        {"profile.alive": true}
+    //    ]});
+    //
+    //    console.log(another_user);
+    //
+    //}
        var hunter = Meteor.users.findOne({_id:hunterId});
        if(hunter.profile.target == null) {//step 1 - check if the hunter doesn't have a target already
        var aliveUsers = Meteor.users.find({"profile.alive":true}).count(); // this is the variable which will tell how many users are alive
