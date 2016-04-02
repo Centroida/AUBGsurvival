@@ -14,5 +14,5 @@ Meteor.publish("events", function(){
 });
 
 Meteor.publish("gamestate" , function() {
-  return GameState.findOne({}); //return the only game state
+  return GameState.find({}); //return the only game state
 })

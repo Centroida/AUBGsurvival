@@ -34,7 +34,6 @@ Template.adminDashboard.helpers({
 
 Template.adminDashboard.events({
     'click .js-btn-start-game': function(event, template) {
-        console.log('start');
         Meteor.call('toggleGameState');
 
     },
