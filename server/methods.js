@@ -4,7 +4,7 @@ assignTarget: function(hunterId){
        var hunter = Meteor.users.findOne({_id:hunterId});
        if(hunter.profile.target == null) {//step 1 - check if the hunter doesn't have a target already
        var aliveUsers = Meteor.users.find({"profile.alive":true}).count(); // this is the variable which will tell how many users are alive
-       console.log("this is the number of the alive users: " + aliveUsers);
+       console.log("Number of users alive: " + aliveUsers);
        var notHunted =  Meteor.users.findOne({
                         $and:[
   						                {_id: {$ne: hunterId} },

@@ -1,6 +1,6 @@
 Template.signin.helpers({
    errors: function() {
-     return Session.get('errors');
+     return Session.get('loginErrors');
    }
 });
 
@@ -12,10 +12,21 @@ Template.signin.events({
         var email = event.target.loginEmail.value;
         var password = event.target.loginPassword.value;
         Meteor.loginWithPassword(email, password , function(error) {
-                if (error)
-                  Session.set('errors', error.reason);
-                else
-                    Router.go('/dashboard');
+                if (error) {
+                    Session.set('loginErrors', error.reason);
+                } else {
+                    Session.set('loginErrors', "");
+                }
         });
+    }
+});
+
+
+Accounts.onLogin(function(){
+    console.log(Roles.userIsInRole(Meteor.userId(), ['admin']));
+    if(Roles.userIsInRole(Meteor.userId(), ['admin'])) {
+        Router.go('/admin');
+    } else {
+        Router.go('/dashboard');
     }
 });

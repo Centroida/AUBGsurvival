@@ -1,8 +1,14 @@
 //todo add pub when ready
 Meteor.publish("users", function () {
-    return Meteor.users.find({});
+    if (Roles.userIsInRole(this.userId, ['admin'])) {
+        return Meteor.users.find({"roles":{ $nin: ['admin'] }});
+    } else {
+        return Meteor.users.find({"roles":{ $nin: ['admin'] }} , {fields: {'profile.firstName': 1, 'profile.lastName': 1 }});
+    }
 });
-
+Meteor.publish("userData", function () {
+    return Meteor.users.find({_id: this.userId});
+});
 Meteor.publish("events", function(){
     return Events.find({});
 });

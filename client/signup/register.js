@@ -1,8 +1,8 @@
 Template.register.helpers({
    errors: function() {
-     return Session.get('errors');
-   },
-})
+     return Session.get('signUpErrors');
+   }
+});
 
 Template.register.events({
     'submit form': function(event) {
@@ -20,14 +20,17 @@ AutoForm.hooks({
         profile: doc.profile
       }, function(error) {
         if(error) {
-          Session.set('errors', error.reason)
+          $('.reg-btn').prop("disabled", false);
+          Session.set('signUpErrors', error.reason)
         } else {
+
           Router.go('/dashboard')
         }
       });
 
-     return false;
+     return true;
 
      }//onSubmit
    }//signUpForm
  });
+

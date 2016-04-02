@@ -1,3 +1,9 @@
-Meteor.subscribe("users");
-Meteor.subscribe("events");
-Meteor.subscribe("gamestate");
+Tracker.autorun(function () {
+    Meteor.subscribe("users");
+    Meteor.subscribe("events");
+    Meteor.subscribe("gamestate");
+});
+
+
+
+

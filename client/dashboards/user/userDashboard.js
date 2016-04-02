@@ -1,12 +1,22 @@
+Template.userDashboard.onCreated(function() {
+    var self = this;
+    self.autorun(function() {
+        self.subscribe('userData');
+        self.subscribe('users');
+    });
+});
+
+
 Template.userDashboard.helpers({
     target:function(){
-        var userId = Meteor.userId();
-        var user = Meteor.users.findOne({_id:userId});
+        var user = Meteor.users.findOne({_id:Meteor.userId()});
         if (user) {
+            console.log(user);
             var targetId = user.profile.target;
             var target = Meteor.users.findOne({_id:targetId});
-
+                console.log(target);
             if (target) {
+                console.log(target);
                var targetInfo = target.profile.lastName + ", " + target.profile.firstName;
                return targetInfo;
                }
@@ -52,40 +62,4 @@ Template.userDashboard.events({
 });
 
 
-Template.adminDashboard.helpers({ 
-  usersStats: function(){
-      var users = Meteor.users.find({});
-      if(users){
-          console.log("hello");
-          console.log(users.fetch({}));
-          return users;
-          
-      }
-      else{
-          return;
-      }
-  },
-  
-  currentHunter: function(id){
-      var userId = id;
-      var user = Meteor.users.findOne({_id:userId});
-      if(user){
-          var currentHunter = user.profile.lastName + ", " + user.profile.firstName; 
-          return currentHunter;
-      }
-  },
-  currentTarget: function(id){
-      var userId = id;
-      var user = Meteor.users.findOne({_id:userId});
-      if(user){
-          var currentTarget = user.profile.lastName + ", " + user.profile.firstName;
-          return currentTarget;
-      }
-  } 
-}); 
 
-Template.adminDashboard.events({ 
-    'click #foo': function(event, template) { 
-         
-    } 
-}); 
