@@ -1,7 +1,7 @@
 Meteor.startup(function () {
 
   //seed data
-	if(Meteor.users.find().count() == 0) {
+	if(Meteor.users.find({}).count() == 0) {
 		var admin = Accounts.createUser({
 			email: "admin@aubg.edu",
 			password: "123123123",
@@ -12,8 +12,10 @@ Meteor.startup(function () {
 		Roles.addUsersToRoles(admin, ['admin']);
 
 	}
+    if(GameState.find({}).count() == 0) {
+        GameState.insert({state: false}); //the game will be stopped
+    }
 
-	GameState.insert({state: false}); //the game will be stopped
 
 
 });

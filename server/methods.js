@@ -132,4 +132,11 @@ assignTarget: function(hunterId){
 
    },
 
+    toggleGameState: function() {
+        var gameState = GameState.findOne({});
+        gameState.state = !gameState.state;
+        console.log(gameState.state);
+        GameState.update({_id: gameState._id}, {$set: {state: gameState.state}});
+    }
+
 });

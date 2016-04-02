@@ -1,4 +1,12 @@
 <template name="adminDashboard">
+    {{#if gameRunning}}
+        <button class="btn btn-danger js-btn-stop-game">Stop the game</button>
+    {{/if}}
+
+    {{#unless gameRunning}}
+        <button class="btn btn-success js-btn-start-game">Start the game</button>
+    {{/unless}}
+
     {{#each usersStats}}
     <p>Name: {{profile.firstName}}</p>
     <p>Name: {{profile.lastName}}</p>

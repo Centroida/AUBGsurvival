@@ -4,31 +4,26 @@ Template.userDashboard.onCreated(function() {
         self.subscribe('userData');
         self.subscribe('users');
     });
+
+    var user = Meteor.users.findOne({_id:Meteor.userId()});
+    if(user) {
+        var targetId = user.profile.target;
+        Meteor.users.findOne({_id:targetId});
+    }
+
 });
 
 
 Template.userDashboard.helpers({
     target:function(){
-        var user = Meteor.users.findOne({_id:Meteor.userId()});
-        if (user) {
-            console.log(user);
-            var targetId = user.profile.target;
+
             var target = Meteor.users.findOne({_id:targetId});
                 console.log(target);
             if (target) {
                 console.log(target);
-               var targetInfo = target.profile.lastName + ", " + target.profile.firstName;
+               var targetInfo = target.profile.lastName + " " + target.profile.firstName;
                return targetInfo;
                }
-               else{
-                   return;
-               }
-
-        }
-
-        else{
-            return;
-        }
 
     },
     
