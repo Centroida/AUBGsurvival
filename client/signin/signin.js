@@ -23,10 +23,15 @@ Template.signin.events({
 
 
 Accounts.onLogin(function(){
-    console.log(Roles.userIsInRole(Meteor.userId(), ['admin']));
     if(Roles.userIsInRole(Meteor.userId(), ['admin'])) {
         Router.go('/admin');
     } else {
         Router.go('/dashboard');
     }
+
+   Meteor.call('getTarget' ,  function(error, response) {
+       console.log(response);
+       Session.set('userTarget' , response)
+   })
 });
+

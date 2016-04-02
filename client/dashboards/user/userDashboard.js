@@ -5,33 +5,17 @@ Template.userDashboard.onCreated(function() {
         self.subscribe('users');
     });
 
-
 });
 
 
 Template.userDashboard.helpers({
-    target:function(){
-        var user = Meteor.users.findOne({_id:Meteor.userId()});
-        if (user) {
-            console.log(user);
-            var targetId = user.profile.target;
+    target: function () {
+        return Session.get("userTarget");
+    }
+});
 
-            function take_user(target) {
-                var user_for_return = Meteor.users.findOne({_id: target});
-                if (user_for_return) {
-                    Session.set("target", user_for_return);
-                }
-                return Session.get("target");
-            };
 
-            var target = take_user(targetId);
-
-        }
-}});
-
-///////////////////////////////////////
-/////////////EVENTS
-//////////////////////////////////////
+//Events
 
 Template.userDashboard.events({
     "click .js-kill-target":function(event){

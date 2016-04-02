@@ -150,11 +150,25 @@ assignTarget: function(hunterId){
 
    },
 
+
+    getTarget: function(targetId){
+        var user = Meteor.users.findOne({_id:this.userId});
+        if(user) {
+            target = Meteor.users.findOne({_id: user.profile.target});
+            if(target){
+                return target.profile.lastName + " " + target.profile.firstName;
+            }
+        }
+
+
+    },
+
     toggleGameState: function() {
         var gameState = GameState.findOne({});
         gameState.state = !gameState.state;
         console.log(gameState.state);
         GameState.update({_id: gameState._id}, {$set: {state: gameState.state}});
     }
+
 
 });
