@@ -3,7 +3,7 @@ Meteor.publish("users", function () {
     if (Roles.userIsInRole(this.userId, ['admin'])) {
         return Meteor.users.find({"roles":{ $nin: ['admin'] }});
     } else {
-        return Meteor.users.find({"roles":{ $nin: ['admin'] }} , {fields: {'profile.firstName': 1, 'profile.lastName': 1 }});
+        return Meteor.users.find({"roles":{ $nin: ['admin'] }} , {fields: {'profile.firstName': 1, 'profile.lastName': 1 , 'profile.kills': 1 }});
     }
 });
 Meteor.publish("userData", function () {
