@@ -2,7 +2,7 @@ Meteor.startup(function () {
 
   //seed data
 	if(Meteor.users.find({}).count() == 0) {
-        var adminPassEnv = process.env.ADMIN_PASS ;
+        var adminPassEnv = process.env.ADMIN_PASSWORD ;
 		var admin = Accounts.createUser({
 			email: "admin@aubg.edu",
 			password: adminPassEnv,
