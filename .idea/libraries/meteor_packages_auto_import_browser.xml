@@ -39,6 +39,7 @@
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/aldeed_autoform/5.8.1/web.browser/templates/bootstrap3/components/afArrayField/afArrayField.css" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/aldeed_autoform/5.8.1/web.browser/templates/bootstrap3/components/afObjectField/afObjectField.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/aldeed_autoform/5.8.1/web.browser/templates/bootstrap3/inputTypes/radio/radio.js" />
+        <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/pauldowman_dotenv/1.0.1/web.browser/packages/pauldowman_dotenv.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/aldeed_autoform/5.8.1/web.browser/templates/bootstrap3/inputTypes/select-radio/select-radio.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/aldeed_autoform/5.8.1/web.browser/templates/bootstrap3/inputTypes/boolean-radios/boolean-radios.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/aldeed_autoform/5.8.1/web.browser/templates/bootstrap3/inputTypes/select-checkbox/select-checkbox.js" />
@@ -248,6 +249,7 @@
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/aldeed_autoform/5.8.1/web.browser/templates/bootstrap3/components/afArrayField/afArrayField.css" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/aldeed_autoform/5.8.1/web.browser/templates/bootstrap3/components/afObjectField/afObjectField.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/aldeed_autoform/5.8.1/web.browser/templates/bootstrap3/inputTypes/radio/radio.js" />
+      <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/pauldowman_dotenv/1.0.1/web.browser/packages/pauldowman_dotenv.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/aldeed_autoform/5.8.1/web.browser/templates/bootstrap3/inputTypes/select-radio/select-radio.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/aldeed_autoform/5.8.1/web.browser/templates/bootstrap3/inputTypes/boolean-radios/boolean-radios.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/aldeed_autoform/5.8.1/web.browser/templates/bootstrap3/inputTypes/select-checkbox/select-checkbox.js" />

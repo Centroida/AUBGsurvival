@@ -1,10 +1,13 @@
 Meteor.methods({
 totalKills: function() {
-    return Meteor.users.aggregate([
+    var kills = Meteor.users.aggregate([
         {
             $group: {_id : null, totalKills: {$sum: "$profile.kills"} }
         }
     ]);
+
+   return  kills[0].totalKills;
+
 },
 assignTarget: function(hunterId){
     //   var number_alive_users = Meteor.users().find({"profile.alive": true}).count();
