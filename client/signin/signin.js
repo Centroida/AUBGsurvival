@@ -30,8 +30,6 @@ Accounts.onLogin(function(){
     }
 
    Meteor.call('getTarget' ,  function(error, response) {
-       console.log(response);
        Session.set('userTarget' , response)
    })
 });
-

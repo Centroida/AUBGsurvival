@@ -20,12 +20,13 @@ Template.userDashboard.helpers({
 Template.userDashboard.events({
     "click .js-kill-target":function(event){
         var inputId = $(".targetId").val();
-        try {
-            Meteor.call("killTarget", inputId);
-        } catch (e) {
-            console.log(e);
-        }
+            Meteor.call("killTarget", inputId , function(error, response) {
+              console.log(response);
+              if(error) {
+                    console.log(error)
+              } else {
+                Session.set("userTarget" , response);
+              }
+            });
     }
 });
-
-
