@@ -10,7 +10,7 @@
     {{#each usersStats}}
     <p>Name: {{profile.firstName}}</p>
     <p>Name: {{profile.lastName}}</p>
-    <p>Status: {{profile.alive}}</p>
+    <p>Alive?: {{profile.alive}}</p>
     <p>Token: {{profile.token}}</p>
     <p>Target: {{currentTarget profile.target}}</p>
     <p>Hunters: </p>
@@ -18,5 +18,6 @@
         <p>{{currentHunter this}}</p>
     {{/each}}
     <hr>
+    <button class="js-delete-user btn btn-danger">Delete user</button>
     {{/each}}
 </template>

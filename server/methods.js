@@ -1,95 +1,34 @@
 Meteor.methods({
-totalKills: function() {
-    var kills = Meteor.users.aggregate([
-        {
-            $group: {_id : null, totalKills: {$sum: "$profile.kills"} }
-        }
-    ]);
 
-   return  kills[0].totalKills;
+    //simple assigning of a hunter and a victim
+    chainUsers: function(userId) {
+        var victim = Meteor.users.findOne({
+            $and:[
+                {_id: {$ne: userId} },
+                {"profile.alive": true},
+                {"profile.target": null},
+                {"profile.hunters.0": {$exists: 0}},
+                {"roles":{ $nin: ['admin'] }}
+            ]
+        });
+        var user = Meteor.users.findOne({_id: userId});
+       if(victim && user.profile.target == null){
+           victim.profile.target = userId;
+           user.profile.target = victim._id;
+           victim.profile.hunters = [userId];
+           user.profile.hunters = [victim._id];
 
-},
-assignTarget: function(hunterId){
-    //   var number_alive_users = Meteor.users().find({"profile.alive": true}).count();
-    //var number_all_users = Meteor.users().find({}).count();
-    //if((number_users == 2) && (number_all_users != 2)){
-    //    var hunter = Meteor.users.findOne({_id:hunterId});
-    //    var another_user = Meteor.users.findOne({$and:[
-    //        {_id:{$ne: hunterId}},
-    //        {"profile.alive": true}
-    //    ]});
-    //
-    //    console.log(another_user);
-    //
-    //}
-       var hunter = Meteor.users.findOne({_id:hunterId});
-       if(hunter.profile.target == null) {//step 1 - check if the hunter doesn't have a target already
-       var aliveUsers = Meteor.users.find({"profile.alive":true}).count(); // this is the variable which will tell how many users are alive
-       console.log("Number of users alive: " + aliveUsers);
-       var notHunted =  Meteor.users.findOne({
-                        $and:[
-  						                {_id: {$ne: hunterId} },
-                              {"profile.alive": true},
-                             //{"profile.hunters": {$nin: [hunterId]}},//It should not have been targeted by the same hunter
-                              {"profile.hunters.0": {$exists: 0}},
-                              {"profile.target": {$ne: hunterId}}
-  						              ]
-                        });
-       if(notHunted){
-           var victim = notHunted;
-       }
-       else{
-          var victim = Meteor.users.findOne({
-                        $and:[
-  						                {_id: {$ne: hunterId} },
-                              {"profile.alive": true},
-                             //{"profile.hunters": {$nin: [hunterId]}},//It should not have been targeted by the same hunter
-                              {"profile.hunters.1": {$exists: 0}},
-                              {"profile.target": {$ne: hunterId}}
-  						              ]
-                        });
+           Meteor.users.update({_id: victim._id} , {$set: {"profile": victim.profile}});
+           Meteor.users.update({_id: userId}, {$set: {"profile": user.profile}});
        }
 
+    },
 
-          //step 2 - assign the target and the hunter
-          if(victim) {
-            victimHunters = victim.profile.hunters;
-            victimHunters.push(hunterId);
-            Meteor.users.update({_id: hunterId} , {$set: {"profile.target": victim._id}});//assign a target for the hunter
-            Meteor.users.update({_id: victim._id} , {$set: {"profile.hunters": victimHunters}});//set the array with the new hunter in it
-          }
-       } else {
-         return;
-       };
-   },
 
-   assignHunter: function(victimId){
-       var victim = Meteor.users.findOne({_id:victimId});
-       var victimHunters = victim.profile.hunters;
-       var hunter = Meteor.users.findOne({
-                      $and:[
-						                {_id: {$ne: victimId} },//the user is not the victim
-                            {"profile.alive": true}, //the user is alive
-                            {"profile.target": null}, // the user does not have a target
-                             {"profile.hunters": {$nin: [victimId]}} // the victim is not among the user's hunters
-                                      ]
-                      });
-
-       if (hunter) {
-           victimHunters.push(hunter._id);
-           Meteor.users.update({_id:hunter._id}, {$set: {"profile.target":victimId}}); //assign  a target for the hunter
-           Meteor.users.update({_id:victimId}, {$set: {"profile.hunters":victimHunters}});//set the array with the new hunter in it
-       }
-
-       else{
-           return;
-       }
-
-   },
 
    //THE METHOD FOR KILLING A USER AND ASSIGNING HIS TARGETS
    killTarget: function(inputToken){
-       console.log("Method killUser has been called");
+       console.log("killTarget has been called");
        var userId = this.userId; // the id of the current user
        var currentUser = Meteor.users.findOne({_id:userId});// we have the current user
        var targetId = currentUser.profile.target; // we obtain the profile target
@@ -132,18 +71,18 @@ assignTarget: function(hunterId){
        }
        else{//else set his target to null and call the assignTarget method
          Meteor.users.update({_id:userId}, {$set: {"profile.target":null}});
-         Meteor.call("assignTarget", userId);
+         Meteor.call("chainUsers", userId);
        }
 
-       //for all users in the hunters - change their target
-       for(position = 0; position < targetUser.profile.hunters.length; position++){
-          if (targetUser.profile.hunters[position] != this.userId) {
-              var hunterId = targetUser.profile.hunters[position];
-              console.log("This is the hunter: " + hunterId );
-              Meteor.users.update({_id:hunterId}, {$set: {"profile.target":null}});
-              Meteor.call("assignTarget", hunterId);
-          }
-      }//end for loop
+      // //for all users in the hunters - change their target
+      // for(position = 0; position < targetUser.profile.hunters.length; position++){
+      //    if (targetUser.profile.hunters[position] != this.userId) {
+      //        var hunterId = targetUser.profile.hunters[position];
+      //        console.log("This is the hunter: " + hunterId );
+      //        Meteor.users.update({_id:hunterId}, {$set: {"profile.target":null}});
+      //        Meteor.call("assignTarget", hunterId);
+      //    }
+      //}//end for loop
 
        }
 
@@ -171,6 +110,28 @@ assignTarget: function(hunterId){
         gameState.state = !gameState.state;
         console.log(gameState.state);
         GameState.update({_id: gameState._id}, {$set: {state: gameState.state}});
+    },
+
+    totalKills: function() {
+        var kills = Meteor.users.aggregate([
+            {
+                $group: {_id : null, totalKills: {$sum: "$profile.kills"} }
+            }
+        ]);
+
+        return  kills[0].totalKills;
+
+    },
+
+    //delete user
+    deleteUser: function(userId) {
+        if(Roles.userIsInRole(this.userId, 'admin')) {
+            var user = Meteor.users.findOne({_id: userId});
+            if(user) {
+                var token = user.profile.token;
+                Meteor.call('killTarget', token);
+            }
+        }
     }
 
 

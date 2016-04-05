@@ -39,5 +39,8 @@ Template.adminDashboard.events({
     },
     'click .js-btn-stop-game': function(event, template) {
         Meteor.call('toggleGameState');
+    },
+    'click .js-delete-user': function(event, template) {
+        Meteor.call('deleteUser', template.data._id)
     }
 });
