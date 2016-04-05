@@ -5,19 +5,22 @@
 
     {{#unless gameRunning}}
         <button class="btn btn-success js-btn-start-game">Start the game</button>
+        <button class="btn btn-primary js-btn-assignUsers"> Assign the users </button>
     {{/unless}}
 
     {{#each usersStats}}
-    <p>Name: {{profile.firstName}}</p>
-    <p>Name: {{profile.lastName}}</p>
-    <p>Alive?: {{profile.alive}}</p>
-    <p>Token: {{profile.token}}</p>
-    <p>Target: {{currentTarget profile.target}}</p>
-    <p>Hunters: </p>
-    {{#each profile.hunters}}
-        <p>{{currentHunter this}}</p>
+      {{> userInfo}}
     {{/each}}
-    <hr>
-    <button class="js-delete-user btn btn-danger">Delete user</button>
-    {{/each}}
+</template>
+
+
+<template name="userInfo">
+
+  <p>Name: {{profile.firstName}}</p>
+  <p>Name: {{profile.lastName}}</p>
+  <p>Status: {{profile.alive}}</p>
+  <p>Token: {{profile.token}}</p>
+  <p>Target: {{currentTarget}}</p>
+  <p>Hunters: {{currentHunter}}</p>
+  <hr>
 </template>

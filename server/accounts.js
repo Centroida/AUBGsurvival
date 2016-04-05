@@ -28,13 +28,5 @@ Accounts.onCreateUser(function(options, user) {
     }
 
 
-
-     //assign a target and a hunter for the new user
-     Meteor.setTimeout(function(){
-         if (user._id && !user.profile.isAdmin) {
-             Meteor.call("chainUsers", user._id);
-         }
-     }, 1000);
-
     return user;
 });

@@ -22,14 +22,23 @@ Template.adminDashboard.helpers({
             return currentHunter;
         }
     },
-    currentTarget: function(id){
-        var userId = id;
-        var user = Meteor.users.findOne({_id:userId});
-        if(user){
-            var currentTarget = user.profile.lastName + ", " + user.profile.firstName;
-            return currentTarget;
-        }
+});
+
+Template.userInfo.helpers({
+  currentTarget: function(){
+      var user = Meteor.users.findOne({_id: this._id});
+      if(user){
+          var currentTarget = user.profile.lastName + "  " + user.profile.firstName;
+          return currentTarget;
+      }
+  },
+  currentHunter: function() {
+    console.log(this.profile.hunters[0]);
+    var hunter = Meteor.users.findOne({_id: this.profile.hunters});
+    if(hunter) {
+          return hunter.profile.firstName + ' ' + hunter.profile.lastName;
     }
+  }
 });
 
 Template.adminDashboard.events({
@@ -40,7 +49,11 @@ Template.adminDashboard.events({
     'click .js-btn-stop-game': function(event, template) {
         Meteor.call('toggleGameState');
     },
-    'click .js-delete-user': function(event, template) {
-        Meteor.call('deleteUser', template.data._id)
+
+    'click .js-btn-assignUsers': function(event, template) {
+        if(confirm('USE THIS ONLY WHEN THE REGISTRATION PERIOD IS OVER!!! ARE YOU SURE YOU WANT TO PROCEED?')) {
+              Meteor.call('startGame');
+        }
+
     }
 });
