@@ -1,0 +1,10 @@
+<template name="recentEvents">
+    <div class="row">
+        <div class="col-md-12">
+            {{#each events}}
+                <p>{{event}}, Date: {{createdOn}}</p>
+            {{/each}}
+        </div>
+    </div>
+</template>
+

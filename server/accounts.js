@@ -1,10 +1,17 @@
 Accounts.config({restrictCreationByEmailDomain:'aubg.edu'});
 
 Accounts.onCreateUser(function(options, user) {
+    //registration is forbidden when the game is running
+    var gameState = GameState.findOne({});
+    if(gameState) {
+        if(gameState.state) {
+            throw new Meteor.Error( 403, 'Forbidden' );
+        }
+    }
 
     if (options.profile) {
       user.profile = options.profile;
-    };
+    }
 
     //Assign attributes
     if(Meteor.users.find().count() == 0) {//check if the user is admin
@@ -27,8 +34,7 @@ Accounts.onCreateUser(function(options, user) {
          if (user._id && !user.profile.isAdmin) {
              Meteor.call("assignHunter", user._id);
              Meteor.call("assignTarget" , user._id);
-
-         };
+         }
   }, 1000);
     return user;
 });
