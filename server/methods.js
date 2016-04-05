@@ -144,17 +144,6 @@ assignTarget: function(hunterId){
 
    },
 
-<<<<<<< HEAD
-    getTarget: function(targetId){
-        var userForReturn = Meteor.users.findOne({_id:targetId});
-        if(userForReturn){
-            console.log("I am returning the user");
-            console.log(userForReturn);
-            return userForReturn;
-        }
-
-    }
-=======
     toggleGameState: function() {
         var gameState = GameState.findOne({});
         gameState.state = !gameState.state;
@@ -162,5 +151,4 @@ assignTarget: function(hunterId){
         GameState.update({_id: gameState._id}, {$set: {state: gameState.state}});
     }
 
->>>>>>> 02632a19badbf480cf606b4d5c575d13da005aa0
 });
