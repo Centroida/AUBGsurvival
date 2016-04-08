@@ -95,12 +95,13 @@ Meteor.methods({
     },
 
 
-    getTarget: function(targetId){
+    getInfo: function(targetId){
         var user = Meteor.users.findOne({_id:this.userId});
         if(user) {
             target = Meteor.users.findOne({_id: user.profile.target});
             if(target){
-                return target.profile.lastName + " " + target.profile.firstName;
+                var res = {target:target.profile.lastName + " " + target.profile.firstName , token: user.profile.token  };
+                return  res;
             }
         }
     },
@@ -137,7 +138,6 @@ Meteor.methods({
 
         //we should obtain an array of three elements in order to return them to the ranking
         if(topUsersArray){
-            console.log(topUsersArray);
             return topUsersArray;
         }
         else{

@@ -26,3 +26,4 @@ alanning:roles
 monbro:mongodb-mapreduce-aggregation
 simple:reactive-method
 pauldowman:dotenv
+fortawesome:fontawesome

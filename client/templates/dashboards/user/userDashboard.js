@@ -1,9 +1,5 @@
 Template.userDashboard.onCreated(function() {
     var self = this;
-    self.autorun(function() {
-        self.subscribe('userData');
-        self.subscribe('users');
-    });
 
 });
 
@@ -11,11 +7,15 @@ Template.userDashboard.onCreated(function() {
 Template.userDashboard.helpers({
     target: function () {
         return Session.get("userTarget");
+
+    },
+    token: function() {
+      return Session.get("personalToken");
     }
 });
 
 
-//Events
+//Eventszzzzzz
 
 Template.userDashboard.events({
     "click .js-kill-target":function(event){
@@ -23,7 +23,7 @@ Template.userDashboard.events({
             Meteor.call("killTarget", inputId , function(error, response) {
               console.log(response);
               if(error) {
-                    console.log(error)
+                    alert('Incorrect code!');
               } else {
                 Session.set("userTarget" , response);
               }

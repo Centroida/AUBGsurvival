@@ -1,7 +1,13 @@
 <template name="home">
   {{#if gameRunning}}
-      <h1> AUBG Survival </h1>
-      <h5> Players killed: {{playersKilled}}</h5>
+   <div class="container-cntr">
+       <div class="jumbotron">
+         <h1 class="jumbo-title"> aubg survival</h1>
+         <h4 class="powered-by">powered by  <a href="http://fb.com/aubgspaces" target="_blank">AUBG Spaces </a></h4>
+         <h1 class="jumbo-players-killed"> Players killed: <span>{{playersKilled}}</span></h1>
+     </div>
+   </div>
+
   {{/if}}
 
   {{#unless gameRunning}}
