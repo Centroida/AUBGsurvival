@@ -12,7 +12,7 @@ Meteor.startup(function () {
 			profile: { first_name: "Admin" , last_name: "Adminov", isAdmin: true},
 			roles: ['admin']
 		});
-        console.log(admin);
+
 		Roles.addUsersToRoles(admin, ['admin']);
 
 	}
