@@ -56,7 +56,7 @@ Meteor.methods({
             }
             var date = new Date();
             Meteor.users.update({_id:this.userId}, {$set: {"profile.kills": kills + 1}});
-            Meteor.users.update({_id:this.userId}, {$set: {"profile.kills": new Date()}});
+            Meteor.users.update({_id:this.userId}, {$set: {"profile.lastKill": new Date()}});
             Meteor.users.update({_id:targetId}, {$set: {"profile.alive":false}}); //assign a value of killed to the user
             var nameKiller = currentUser.profile.firstName + " " + currentUser.profile.lastName;
             var nameTarget = targetUser.profile.firstName + " " + targetUser.profile.lastName;
