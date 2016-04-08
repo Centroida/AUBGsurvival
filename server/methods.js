@@ -54,7 +54,9 @@ Meteor.methods({
             if(!kills){
                 kills = 0;
             }
+            var date = new Date();
             Meteor.users.update({_id:this.userId}, {$set: {"profile.kills": kills + 1}});
+            Meteor.users.update({_id:this.userId}, {$set: {"profile.kills": new Date()}});
             Meteor.users.update({_id:targetId}, {$set: {"profile.alive":false}}); //assign a value of killed to the user
             var nameKiller = currentUser.profile.firstName + " " + currentUser.profile.lastName;
             var nameTarget = targetUser.profile.firstName + " " + targetUser.profile.lastName;
@@ -131,13 +133,11 @@ Meteor.methods({
     },
 
     winner: function(){
-        var topUsers = Meteor.users.find({}, {sort: {"profile.kills": -1}, limit: 1});
-        console.log(topUsers.fetch());
-        if(topUsers){
-            return topUsers.fetch();
-        }
-        else{
-            return "haha";
+        var topUserArray = Meteor.users.find({}, {sort: {"profile.kills": -1, "profile.lastKill": -1}, limit: 3}).fetch();
+
+        //we should obtain an array of three elements in order to return them to the ranking
+        if(topUserArray){
+            console.log(topUserArray);
         }
 
 
