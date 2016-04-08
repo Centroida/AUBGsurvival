@@ -5,7 +5,9 @@
 	    <meta http-equiv="Content-Language" content="bg">
 	</head>
 
-	<body>
+
+	 <body class="{{#if gameRunning}}turnon{{/if}}{{#unless gameRunning}}turnoff{{/unless}}">
+
 
     {{>yield "navbar"}}
 	<div class="container">

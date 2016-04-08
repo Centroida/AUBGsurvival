@@ -11,23 +11,27 @@ Meteor.methods({
     },
 
     assignTarget: function(hunterId){
-        var numberUsers = Meteor.users.find({}).count();
+;
         var hunter = Meteor.users.findOne({_id:hunterId});
         var users = Meteor.users.find({}, {sort: {"_id": 1}}).fetch();
-        var notHunted =  Meteor.users.findOne({
-            $and:[
-                {_id: {$ne: hunterId} },
-                {"profile.alive": true},
-                {"profile.hunters.0": {$exists: 0}},
-                {"profile.target": {$ne: hunterId}}
-            ]
-        });
+
+
+            var notHunted =  Meteor.users.findOne({
+                $and:[
+                    {_id: {$ne: hunterId} },
+                    {"profile.alive": true},
+                    {"profile.hunters.0": {$exists: 0}},
+                    {"profile.target": {$ne: hunterId}}
+                ]
+            });
+
+
         if(notHunted){
             var victim = notHunted;
         }
         //step 2 - assign the target and the hunter
         if(victim) {
-            victimHunters = victim.profile.hunters;
+            var victimHunters = victim.profile.hunters;
             victimHunters.push(hunterId);
             Meteor.users.update({_id: hunterId} , {$set: {"profile.target": victim._id}});//assign a target for the hunter
             Meteor.users.update({_id: victim._id} , {$set: {"profile.hunters": victimHunters}});//set the array with the new hunter in it
@@ -50,7 +54,9 @@ Meteor.methods({
             if(!kills){
                 kills = 0;
             }
+            var date = new Date();
             Meteor.users.update({_id:this.userId}, {$set: {"profile.kills": kills + 1}});
+            Meteor.users.update({_id:this.userId}, {$set: {"profile.lastKill": new Date()}});
             Meteor.users.update({_id:targetId}, {$set: {"profile.alive":false}}); //assign a value of killed to the user
             var nameKiller = currentUser.profile.firstName + " " + currentUser.profile.lastName;
             var nameTarget = targetUser.profile.firstName + " " + targetUser.profile.lastName;
@@ -63,11 +69,12 @@ Meteor.methods({
             //Now go the array of his target and delete the entry with the killed user's name
             var nextTargetId = targetUser.profile.target;// we obtain the next target
             var nextTargetUser = Meteor.users.findOne({_id:nextTargetId});
-
+            var numberUsers = Meteor.users.find({}).count();
+            var numberAliveUsers = Meteor.users.find({"profile.alive":true}).count()
             // End of deleting
             //the case with the killer is specific - so we handle it in a different way
             //he has the right on the target's target
-            if ((nextTargetId != this.userId) && (this.userId != nextTargetUser.profile.target)) {//check if the next target is not the user himself
+            if ((nextTargetId != this.userId) && (this.userId != nextTargetUser.profile.target) || ((numberUsers > 2) && (numberAliveUsers == 2))) {//check if the next target is not the user himself
                 console.log("We are assigning the next target");
                 Meteor.users.update({_id:nextTargetId}, {$set:{"profile.hunters": this.userId} });
                 //the killer has the right to obtain the target
@@ -88,12 +95,13 @@ Meteor.methods({
     },
 
 
-    getTarget: function(targetId){
+    getInfo: function(targetId){
         var user = Meteor.users.findOne({_id:this.userId});
         if(user) {
             target = Meteor.users.findOne({_id: user.profile.target});
             if(target){
-                return target.profile.lastName + " " + target.profile.firstName;
+                var res = {target:target.profile.lastName + " " + target.profile.firstName , token: user.profile.token  };
+                return  res;
             }
         }
     },
@@ -123,6 +131,20 @@ Meteor.methods({
             }
 
         }
+    },
+
+    winner: function(){
+        var topUsersArray = Meteor.users.find({}, {sort: {"profile.kills": -1, "profile.lastKill": -1}, limit: 3}).fetch();
+
+        //we should obtain an array of three elements in order to return them to the ranking
+        if(topUsersArray){
+            return topUsersArray;
+        }
+        else{
+            return;
+        }
+
+
     }
 
 }); //end Methods

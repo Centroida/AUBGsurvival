@@ -21,25 +21,25 @@
                                                 <li><a href="/admin">Admin panel</a></li>
                                             {{/if}}
                                             {{#if isInRole 'user'}}
-                                                <li><a href="/dashboard">Dashboard</a></li>
+                                                <li><a href="/dashboard"><i class="fa fa-gamepad"></i>  Dashboard</a></li>
                                             {{/if}}
 										{{/if}}
 									  {{#if gameRunning}}
-                    		                    <li><a href="/ranking">Ranking</a></li>
+                    		                    <li><a href="/ranking"><i class="fa fa-list-ol"></i>  Ranking</a></li>
 										{{/if}}
-                                                <li><a href="/rules">Rules</a></li>
+                                                <li><a href="/rules"><i class="fa fa-question-circle"></i>  Rules</a></li>
                   </ul>
 
 									<ul class="nav navbar-nav navbar-right">
 										{{#if currentUser}}
                       <!-- todo Add log out -->
-                      <li><a href="/" class="js-logout"> Log Out </a></li>
+                      <li><a href="/" class="js-logout"><i class="fa fa-sign-out"></i> Log Out </a></li>
 										{{else}}
 
 										  {{#unless gameRunning}}
                       		<li><a href="/signup"> Register </a></li>
 											{{/unless}}
-                      <li><a href="/signin"> Log in </a></li>
+                      <li><a href="/signin"><i class="fa fa-sign-in"></i> Log in </a></li>
 										{{/if}}
 									</ul>
                 </div><!-- /.navbar-collapse -->

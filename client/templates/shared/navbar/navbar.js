@@ -3,7 +3,8 @@ Template.navbar.events({
         if (Meteor.userId()) {
             Meteor.logout(function() {
                 Session.set("userTarget" , null);
+                Session.set("personalToken" , null);
             });
         }
-    } 
+    }
 })
