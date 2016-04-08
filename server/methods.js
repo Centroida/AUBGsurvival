@@ -133,11 +133,15 @@ Meteor.methods({
     },
 
     winner: function(){
-        var topUserArray = Meteor.users.find({}, {sort: {"profile.kills": -1, "profile.lastKill": -1}, limit: 3}).fetch();
+        var topUsersArray = Meteor.users.find({}, {sort: {"profile.kills": -1, "profile.lastKill": -1}, limit: 3}).fetch();
 
         //we should obtain an array of three elements in order to return them to the ranking
-        if(topUserArray){
-            console.log(topUserArray);
+        if(topUsersArray){
+            console.log(topUsersArray);
+            return topUsersArray;
+        }
+        else{
+            return;
         }
 
 
