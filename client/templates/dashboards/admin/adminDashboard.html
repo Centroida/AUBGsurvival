@@ -36,5 +36,8 @@
     <td> {{profile.token}} </td>
     <td> {{currentTarget}} </td>
     <td> {{currentHunter}} </td>
+    {{#unless gameRunning}}
+         <td><button class="btn btn-danger js-btn-delete-user">Delete user</button></td>
+    {{/unless}}
   </tr>
 </template>

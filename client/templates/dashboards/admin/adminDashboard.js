@@ -56,4 +56,13 @@ Template.adminDashboard.events({
         }
 
     }
+
+});
+
+Template.userInfo.events({
+    'click .js-btn-delete-user': function(event, template) {
+        if(confirm('Are you sure you want to delete this user?')) {
+            Meteor.call('deleteUser', this._id);
+        }
+    }
 });

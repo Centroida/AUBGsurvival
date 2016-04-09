@@ -37,7 +37,7 @@ Meteor.methods({
             Meteor.users.update({_id: victim._id} , {$set: {"profile.hunters": victimHunters}});//set the array with the new hunter in it
         } else {
             return;
-        };
+        }
     },
 
     //THE METHOD FOR KILLING A USER AND ASSIGNING HIS TARGETS
@@ -150,6 +150,7 @@ Meteor.methods({
     deleteUser: function(targetUser){
         if ((targetUser) && (Roles.userIsInRole(this.userId, ['admin']))) {
             Meteor.users.remove({_id:targetUser});
+            Meteor.call('startGame');//reassign all users
         }
         else{
             return;
