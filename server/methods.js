@@ -147,9 +147,14 @@ Meteor.methods({
 
     },
 
-    deleteUser: function(userId){
-
-        Meteor.users.remove({_id:userId});
+    deleteUser: function(targetUser){
+        if ((targetUser) && (Roles.userIsInRole(this.userId, ['admin']))) {
+            Meteor.users.remove({_id:targetUser});
+        }
+        else{
+            return;
+        }
+        
     }
 
 }); //end Methods
