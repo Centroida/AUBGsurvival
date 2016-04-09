@@ -145,6 +145,11 @@ Meteor.methods({
         }
 
 
+    },
+
+    deleteUser: function(userId){
+
+        Meteor.users.remove({_id:userId});
     }
 
 }); //end Methods
