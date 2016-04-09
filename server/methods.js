@@ -11,7 +11,7 @@ Meteor.methods({
     },
 
     assignTarget: function(hunterId){
-;
+
         var hunter = Meteor.users.findOne({_id:hunterId});
         var users = Meteor.users.find({}, {sort: {"_id": 1}}).fetch();
 
@@ -43,12 +43,13 @@ Meteor.methods({
     //THE METHOD FOR KILLING A USER AND ASSIGNING HIS TARGETS
     killTarget: function(inputToken){
         console.log("Method killUser has been called");
+        var numberAliveUsers = Meteor.users.find({"profile.alive":true}).count();
         var currentUser = Meteor.users.findOne({_id:this.userId});// we have the current user
         var targetId = currentUser.profile.target; // we obtain the profile target
         var targetUser = Meteor.users.findOne({_id:targetId}); //we find the _id of the target
 
 
-        if ((inputToken == targetUser.profile.token) && (currentUser.profile.alive == true)) {// the user's input is correct
+        if ((inputToken == targetUser.profile.token) && (currentUser.profile.alive == true) && (numberAliveUsers > 1)) {// the user's input is correct
             console.log("A user is being killed");
             var kills = currentUser.profile.kills;
             if(!kills){
@@ -70,7 +71,6 @@ Meteor.methods({
             var nextTargetId = targetUser.profile.target;// we obtain the next target
             var nextTargetUser = Meteor.users.findOne({_id:nextTargetId});
             var numberUsers = Meteor.users.find({}).count();
-            var numberAliveUsers = Meteor.users.find({"profile.alive":true}).count()
             // End of deleting
             //the case with the killer is specific - so we handle it in a different way
             //he has the right on the target's target
@@ -134,7 +134,7 @@ Meteor.methods({
     },
 
     winner: function(){
-        var topUsersArray = Meteor.users.find({}, {sort: {"profile.kills": -1, "profile.lastKill": -1}, limit: 3}).fetch();
+        var topUsersArray = Meteor.users.find({}, {sort: {"profile.kills": -1, "profile.lastKill": 1}, limit: 3}).fetch();
 
         //we should obtain an array of three elements in order to return them to the ranking
         if(topUsersArray){
@@ -145,6 +145,16 @@ Meteor.methods({
         }
 
 
+    },
+
+    deleteUser: function(targetUser){
+        if ((targetUser) && (Roles.userIsInRole(this.userId, ['admin']))) {
+            Meteor.users.remove({_id:targetUser});
+        }
+        else{
+            return;
+        }
+        
     }
 
 }); //end Methods

@@ -3,7 +3,7 @@ Meteor.startup(function () {
   //seed data
 	if(Meteor.users.find({}).count() == 0) {
 
-			var adminPassEnv = process.env.ADMIN_PASSWORD ;
+			var adminPassEnv = "hello" ;
 
 
 		var admin = Accounts.createUser({
