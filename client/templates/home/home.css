@@ -1,0 +1,44 @@
+.jumbo-title{
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  color: #ff4c4c !important;
+  font-weight: 700;
+  font-size: 7em !important;
+}
+
+.powered-by {
+  text-transform: uppercase;
+  text-align: center;
+}
+.powered-by a {
+    color: #c1c1c1;
+    text-decoration: none;
+}
+
+.powered-by a:hover
+{
+      color: #ff4c4c;
+     text-decoration:none;
+     cursor:pointer;
+}
+
+.container-cntr {
+  position: relative;
+  height: 90vh;
+}
+
+.jumbotron {
+  position: absolute;
+  top: 50%;
+  left:50%;
+  background: transparent;
+  transform: translate(-50%,-50%);
+}
+
+.jumbo-players-killed span {
+  color:#ff4c4c;
+}
+.jumbo-players-killed  {
+  text-align: center;
+}

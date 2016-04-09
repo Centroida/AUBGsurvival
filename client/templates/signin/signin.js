@@ -29,7 +29,9 @@ Accounts.onLogin(function(){
         Router.go('/dashboard');
     }
 
-   Meteor.call('getTarget' ,  function(error, response) {
-       Session.set('userTarget' , response)
+   Meteor.call('getInfo' ,  function(error, response) {
+       Session.set('userTarget' , response.target);
+       Session.set('personalToken', response.token);
    })
+
 });

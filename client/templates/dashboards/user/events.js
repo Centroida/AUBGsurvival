@@ -13,3 +13,11 @@ Template.recentEvents.helpers({
         return Events.find({}, {sort: {createdOn: -1}, limit: 5});
     }
 });
+
+
+Template.event.helpers( {
+  createdOn: function() {
+    var date = this.createdOn.toLocaleString();
+    return date.substring(0, date.length - 5);
+  }
+})
