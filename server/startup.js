@@ -1,5 +1,5 @@
 Meteor.startup(function () {
-	process.env.MAIL_URL = 'smtp://sandboxc4edb1042fcb41e6bd41e5b1ba6fdcea:8b73b3b9c423049867174dd585b2dda2.mailgun.org:587'
+	process.env.MAIL_URL = 'smtp://kaizeras:centroidaspaces16@smtp.sendgrid.net:587';
   //seed data
 	if(Meteor.users.find({}).count() == 0) {
 

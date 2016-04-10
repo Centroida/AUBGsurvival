@@ -26,14 +26,13 @@ Template.adminDashboard.helpers({
 
 Template.userInfo.helpers({
   currentTarget: function(){
-      var user = Meteor.users.findOne({_id: this._id});
+      var user = Meteor.users.findOne({_id: this.profile.target});
       if(user){
           var currentTarget = user.profile.lastName + "  " + user.profile.firstName;
           return currentTarget;
       }
   },
   currentHunter: function() {
-    console.log(this.profile.hunters[0]);
     var hunter = Meteor.users.findOne({_id: this.profile.hunters});
     if(hunter) {
           return hunter.profile.firstName + ' ' + hunter.profile.lastName;
