@@ -6,10 +6,13 @@ body > .container {
     font-family: 'Sarpanch', sans-serif;
 }
 
-html, body {
-   height: 100%;
-   height:100%;
+html {
+  height: 100%;
 }
+body {
+  min-height: 100vh;
+}
+
 
 .turnon {
   background-color: #676767;
