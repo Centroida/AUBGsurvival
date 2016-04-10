@@ -3,7 +3,11 @@ Meteor.startup(function () {
   //seed data
 	if(Meteor.users.find({}).count() == 0) {
 
+
     var adminPassEnv = "hello" ;
+
+
+
 
 
 		var admin = Accounts.createUser({
@@ -12,7 +16,7 @@ Meteor.startup(function () {
 			profile: { first_name: "Admin" , last_name: "Adminov", isAdmin: true},
 			roles: ['admin']
 		});
-        console.log(admin);
+
 		Roles.addUsersToRoles(admin, ['admin']);
 
 	}
