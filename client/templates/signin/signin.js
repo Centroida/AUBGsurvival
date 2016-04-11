@@ -28,10 +28,11 @@ Accounts.onLogin(function(){
     } else {
         Router.go('/dashboard');
     }
-
+   //get user info that is not included in the pub
    Meteor.call('getInfo' ,  function(error, response) {
        Session.set('userTarget' , response.target);
        Session.set('personalToken', response.token);
+
    })
 
 });

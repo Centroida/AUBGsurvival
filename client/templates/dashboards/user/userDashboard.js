@@ -11,12 +11,17 @@ Template.userDashboard.helpers({
     },
     token: function() {
       return Session.get("personalToken");
+    },
+    alive: function() {
+        var user = Meteor.user();
+        if(user) {
+            return user.profile.alive;
+        }
     }
 });
 
 
-//Eventszzzzzz
-
+//Events
 Template.userDashboard.events({
     "click .js-kill-target":function(event){
         var inputId = $(".targetId").val();
